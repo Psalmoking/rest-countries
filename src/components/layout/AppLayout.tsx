@@ -14,7 +14,7 @@ const AppLayout = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between p-4 shadow-md bg-gray-50 dark:bg-[hsl(209,23%,22%)]">
+      <header className="flex items-center justify-between p-4 shadow-md bg-white dark:bg-[hsl(209,23%,22%)]">
         <h4>Where in the world?</h4>
         <Button
           onClick={toggleTheme}
@@ -30,9 +30,9 @@ const AppLayout = () => {
           </div>
         </Button>
       </header>
-      <body className="bg-gray-50 dark:bg-[hsl(207,26%,17%)]">
+      <main className="bg-gray-50 h-[calc(100dvh-4.5rem)] dark:bg-[hsl(207,26%,17%)]">
         <Outlet />
-      </body>
+      </main>
     </>
   );
 };
