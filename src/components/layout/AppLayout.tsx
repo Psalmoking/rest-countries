@@ -18,7 +18,7 @@ const AppLayout = () => {
         <h4>Where in the world?</h4>
         <Button
           onClick={toggleTheme}
-          className="flex p-2 rounded-full bg-gray-100. dark:bg-gray-800. text-black dark:text-white transition"
+          className="flex p-2 rounded-full bg-inherit text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
         >
           <div className="flex items-center gap-2 text-gray-950 dark:text-white ">
             {isDark ? (

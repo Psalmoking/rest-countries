@@ -1,7 +1,11 @@
+import SearchBar from "@/components/common/SearchBar";
+
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <main className="p-4 space-y-8">
+      <SearchBar placeholder="Search for a country..." />
+    </main>
+  );
+};
 
-export default Home
+export default Home;
