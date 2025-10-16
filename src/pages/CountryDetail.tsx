@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -11,8 +12,13 @@ import countries from "../../data.json";
 const CountryDetail = () => {
   const navigate = useNavigate();
   const { countryName } = useParams<{ countryName: string }>();
+  const [country, setCountry] = useState<(typeof countries)[0] | null>(null);
 
-  const country = countries.find((country) => country.name === countryName);
+  useEffect(() => {
+    setCountry(
+      countries.find((country) => country.name === countryName) ?? null
+    );
+  }, [countryName]);
 
   if (!country) {
     return <div>Country not found</div>;
@@ -33,7 +39,11 @@ const CountryDetail = () => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.1 }}
         >
-          <img src="https://flagcdn.com/af.svg" alt="Country Flag" />
+          <img
+            src={country.flag}
+            className="shadow-[0_0_10px_rgba(0,0,0,0.15)]"
+            alt="Country Flag"
+          />
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -89,12 +99,19 @@ const CountryDetail = () => {
           <div className="space-y-4 md:space-y-0 md:flex items-center md:gap-4 mb-10 md:my-16 md:mb-0">
             <h4 className="font-medium">Border Countries:</h4>
             <div className="flex flex-wrap gap-2">
-              {/* {country.borders?.length === 0 ? (
-                <span>No border countries</span>
-              ): */}
-              {country.borders?.map((border) => (
-                <BorderCountryLink countryName={border} link="#" key={border} />
-              ))}
+              {country.borders?.length === 0 || !country.borders ? (
+                <span className="text-muted-foreground">
+                  No border countries
+                </span>
+              ) : (
+                country.borders?.map((border) => (
+                  <BorderCountryLink
+                    countryName={border}
+                    link="#"
+                    key={border}
+                  />
+                ))
+              )}
             </div>
           </div>
         </motion.div>
