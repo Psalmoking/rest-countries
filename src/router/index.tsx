@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import AppLayout from "@/components/layout/AppLayout";
+import CountryDetail from "@/pages/CountryDetail";
 import Home from "@/pages/Home";
 
 import { ProviderRoutePaths } from "./routePaths";
@@ -13,6 +14,10 @@ export const ProviderRouter = createBrowserRouter([
       {
         path: ProviderRoutePaths.Home,
         Component: Home,
+      },
+      {
+        path: ProviderRoutePaths.CountryDetails,
+        Component: CountryDetail,
       },
     ],
   },

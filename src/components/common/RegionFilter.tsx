@@ -30,7 +30,7 @@ const RegionFilter = ({ selectedRegion, selectRegion }: RegionFilterProps) => {
       <DropdownMenuContent
         align="start"
         sideOffset={5}
-        className={`w-56 rounded-md border bg-background shadow-md 
+        className={`w-56 rounded-md border bg-background  dark:bg-[hsl(209,23%,22%)] border-none shadow-md 
           data-[state=open]:animate-in 
           data-[state=open]:fade-in-0 
           data-[state=open]:zoom-in-95 
