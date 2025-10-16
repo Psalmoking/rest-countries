@@ -96,8 +96,8 @@ const CountryDetail = () => {
               </p>
             </div>
           </div>
-          <div className="space-y-4 md:space-y-0 md:flex items-center md:gap-4 mb-10 md:my-16 md:mb-0">
-            <h4 className="font-medium">Border Countries:</h4>
+          <div className="space-y-4 md:space-y-0 md:flex items-start md:gap-4 mb-10 md:my-16 md:mb-0">
+            <h4 className="font-medium min-w-fit pt-1">Border Countries:</h4>
             <div className="flex flex-wrap gap-2">
               {country.borders?.length === 0 || !country.borders ? (
                 <span className="text-muted-foreground">
