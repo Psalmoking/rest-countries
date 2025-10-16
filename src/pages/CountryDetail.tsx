@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -6,8 +6,18 @@ import { motion } from "framer-motion";
 
 import BorderCountryLink from "@/components/common/BorderCountryLink";
 
+import countries from "../../data.json";
+
 const CountryDetail = () => {
   const navigate = useNavigate();
+  const { countryName } = useParams<{ countryName: string }>();
+
+  const country = countries.find((country) => country.name === countryName);
+
+  if (!country) {
+    return <div>Country not found</div>;
+  }
+
   return (
     <>
       <Button
@@ -31,30 +41,30 @@ const CountryDetail = () => {
           transition={{ duration: 0.3, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.1 }}
         >
-          <h2>Country Name</h2>
+          <h2>{country.name}</h2>
           <div className="grid md:grid-cols-2 gap-10 my-6">
             <div className="space-y-3 text-sm font-light">
               <p>
                 <span className="font-medium text-foreground">
                   Native Name:
                 </span>{" "}
-                {"region"}
+                {country.nativeName}
               </p>
               <p>
                 <span className="font-medium text-foreground">Population:</span>{" "}
-                {"region"}
+                {country.population.toLocaleString()}
               </p>
               <p>
                 <span className="font-medium text-foreground">Region:</span>{" "}
-                {"region"}
+                {country.region}
               </p>
               <p>
                 <span className="font-medium text-foreground">Sub Region:</span>{" "}
-                {"region"}
+                {country.subregion}
               </p>
               <p>
                 <span className="font-medium text-foreground">Capital:</span>{" "}
-                {"region"}
+                {country.capital}
               </p>
             </div>
             <div className="space-y-3 text-sm font-light">
@@ -62,24 +72,29 @@ const CountryDetail = () => {
                 <span className="font-medium text-foreground">
                   Top Level Domain:
                 </span>{" "}
-                {"region"}
+                {country.topLevelDomain.join(", ")}
               </p>
               <p>
                 <span className="font-medium text-foreground">Currencies:</span>{" "}
-                {"region"}
+                {country.currencies
+                  ?.map((currency) => currency.name)
+                  .join(", ")}
               </p>
               <p>
                 <span className="font-medium text-foreground">Languages:</span>{" "}
-                {"region"}
+                {country.languages?.map((language) => language.name).join(", ")}
               </p>
             </div>
           </div>
           <div className="space-y-4 md:space-y-0 md:flex items-center md:gap-4 mb-10 md:my-16 md:mb-0">
             <h4 className="font-medium">Border Countries:</h4>
-            <div className="w-fulal flex flex-wrap justify-betwdeen gap-2">
-              <BorderCountryLink countryName="Country 1" link="#" key={134} />
-              <BorderCountryLink countryName="Country 1" link="#" key={134} />
-              <BorderCountryLink countryName="Country 1" link="#" key={134} />
+            <div className="flex flex-wrap gap-2">
+              {/* {country.borders?.length === 0 ? (
+                <span>No border countries</span>
+              ): */}
+              {country.borders?.map((border) => (
+                <BorderCountryLink countryName={border} link="#" key={border} />
+              ))}
             </div>
           </div>
         </motion.div>

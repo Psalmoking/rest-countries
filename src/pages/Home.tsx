@@ -6,8 +6,12 @@ import CountryListItem from "@/components/common/CountryListItem";
 
 import { ProviderRoutePaths } from "@/router/routePaths";
 
+import countries from "../../data.json";
+
 const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  console.log(countries);
+
   return (
     <div className="space-y-8">
       <div className="space-y-4 md:flex md:justify-between md:items-center md:space-y-0">
@@ -18,51 +22,20 @@ const Home = () => {
         />
       </div>
       <section className="grid md:grid-cols-4 gap-4 md:gap-10">
-        <CountryListItem
-          capital="Beijing"
-          flagUrl="https://flagcdn.com/af.svg"
-          key={1}
-          name="China"
-          population="484,943,990"
-          region="Asia"
-          link={ProviderRoutePaths.CountryDetails}
-        />
-        <CountryListItem
-          capital="Beijing"
-          flagUrl="https://flagcdn.com/af.svg"
-          key={1}
-          name="China"
-          population="484,943,990"
-          region="Asia"
-          link="#"
-        />
-        <CountryListItem
-          capital="Beijing"
-          flagUrl="https://flagcdn.com/af.svg"
-          key={1}
-          name="China"
-          population="484,943,990"
-          region="Asia"
-          link="#"
-        />
-        <CountryListItem
-          capital="Beijing"
-          flagUrl="https://flagcdn.com/af.svg"
-          key={1}
-          name="China"
-          population="484,943,990"
-          region="Asia"
-          link="#"
-        />
-        <CountryListItem
-          capital="Beijing"
-          flagUrl="https://flagcdn.com/af.svg"
-          key={1}
-          name="China"
-          population="484,943,990"
-          region="Asia"
-          link="#"
-        />
+        {countries.map((country) => (
+          <CountryListItem
+            key={country.name}
+            name={country.name}
+            capital={country.capital ?? ""}
+            flagUrl={country.flag}
+            population={country.population.toLocaleString()}
+            region={country.region}
+            link={ProviderRoutePaths.CountryDetails.replace(
+              ":countryName",
+              country.name
+            )}
+          />
+        ))}
       </section>
     </div>
   );
