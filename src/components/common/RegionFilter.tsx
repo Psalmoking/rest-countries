@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
-const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
+const regions = ["Africa", "Americas", "Antarctic Ocean", "Asia", "Europe", "Oceania", "Polar"];
 
 interface RegionFilterProps {
   selectedRegion?: string | null;
