@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,6 +7,7 @@ import { motion } from "framer-motion";
 import BorderCountryLink from "@/components/common/BorderCountryLink";
 
 import countries from "../../data.json";
+import { ProviderRoutePaths } from "@/router/routePaths";
 
 const CountryDetail = () => {
   const navigate = useNavigate();
@@ -24,8 +24,12 @@ const CountryDetail = () => {
     return <div>Country not found</div>;
   }
 
+  const borderCountries = country.borders?.map(
+    (code) => countries.find((c) => c.alpha3Code === code) ?? null
+  );
+
   return (
-    <>
+    <div key={country.name}>
       <Button
         onClick={() => navigate(-1)}
         className="bg-white font-light dark:bg-[hsl(209,23%,22%)] rounded-sm text-black dark:text-white hover:bg-gray-100 dark:hover:bg-[hsl(209,26%,28%)] shadow-[0_0_10px_rgba(0,0,0,0.15)] mb-8 w-[7rem] cursor-pointer"
@@ -104,19 +108,24 @@ const CountryDetail = () => {
                   No border countries
                 </span>
               ) : (
-                country.borders?.map((border) => (
-                  <BorderCountryLink
-                    countryName={border}
-                    link="#"
-                    key={border}
-                  />
-                ))
+                borderCountries?.map((c) =>
+                  c ? (
+                    <BorderCountryLink
+                      countryName={c.name}
+                      link={ProviderRoutePaths.CountryDetails.replace(
+                        ":countryName",
+                        c.name
+                      )}
+                      key={c.alpha3Code}
+                    />
+                  ) : null
+                )
               )}
             </div>
           </div>
         </motion.div>
       </div>
-    </>
+    </div>
   );
 };
 
