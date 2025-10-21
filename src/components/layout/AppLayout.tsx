@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
-
+import { Link, Outlet } from "react-router-dom";
 import { Moon } from "lucide-react";
+
 import { Button } from "../ui/button";
+
+import { ProviderRoutePaths } from "@/router/routePaths";
 
 const AppLayout = () => {
   const [isDark, setIsDark] = useState<boolean>(false);
@@ -16,7 +18,9 @@ const AppLayout = () => {
     <div className="relative">
       <header className="p-4 relative shadow-md bg-white dark:bg-[hsl(209,23%,22%)] z-10">
         <div className="flex items-center justify-between md:w-[90%] mx-auto">
-          <h5 className="md:text-[1.35rem]">Where in the world?</h5>
+          <Link to={ProviderRoutePaths.Home}>
+            <h5 className="md:text-[1.35rem]">Where in the world?</h5>
+          </Link>
           <Button
             onClick={toggleTheme}
             className="flex p-2 rounded-full bg-inherit text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"

@@ -2,23 +2,14 @@ import { Card, CardContent } from "../ui/card";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
+import type { Country } from "@/types";
+
 interface CountryListItemProps {
-  flagUrl: string;
-  name: string;
-  population: string;
-  region: string;
-  capital: string;
+  country: Country;
   link: string;
 }
 
-const CountryListItem = ({
-  flagUrl,
-  name,
-  population,
-  region,
-  capital,
-  link,
-}: CountryListItemProps) => {
+const CountryListItem = ({ country, link }: CountryListItemProps) => {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -29,31 +20,39 @@ const CountryListItem = ({
       viewport={{ once: true, amount: 0.1 }}
       className="w-[85%] md:w-full mx-auto"
     >
-      <Link to={link}>
+      <Link to={link} state={country}>
         <Card className="p-0 rounded-md overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer bg-background border-none dark:bg-[hsl(209,23%,22%)]">
           <img
-            src={flagUrl}
-            alt={`${name} flag`}
+            src={country.flag}
+            // src={flagUrl}
+            // alt={`${name} flag`}
+            alt={`${country.name} flag`}
             className="h-40 w-full object-cover"
           />
 
           <CardContent className="space-y-2 pb-6 px-5">
-            <h4 className="font-bold text-lg text-foreground">{name}</h4>
+            <h4 className="font-bold text-lg text-foreground">
+              {country.name}
+            </h4>
+            {/* <h4 className="font-bold text-lg text-foreground">{name}</h4> */}
 
             <div className="space-y-1 text-sm text-muted-foreground">
               <p>
                 <span className="font-semibold text-foreground">
                   Population:
                 </span>{" "}
-                {population}
+                {country.population}
+                {/* {population} */}
               </p>
               <p>
                 <span className="font-semibold text-foreground">Region:</span>{" "}
-                {region}
+                {country.region}
+                {/* {region} */}
               </p>
               <p>
                 <span className="font-semibold text-foreground">Capital:</span>{" "}
-                {capital}
+                {country.capital}
+                {/* {capital} */}
               </p>
             </div>
           </CardContent>

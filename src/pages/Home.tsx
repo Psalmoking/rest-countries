@@ -1,13 +1,11 @@
-import React from "react";
-import { useState, useMemo } from "react";
-
+import React, { useState, useMemo, useEffect } from "react";
+import axios from "axios";
+import { Skeleton } from "@/components/ui/skeleton";
 import SearchBar from "@/components/common/SearchBar";
 import RegionFilter from "@/components/common/RegionFilter";
 import CountryListItem from "@/components/common/CountryListItem";
-
 import { ProviderRoutePaths } from "@/router/routePaths";
-
-import countries from "../../data.json";
+import type { Country } from "@/types";
 
 const ITEMS_PER_PAGE = 16;
 
@@ -15,13 +13,31 @@ const Home = () => {
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("/data.json");
+        setCountries(response.data);
+      } catch (error) {
+        console.error("Error fetching countries:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCountries();
+  }, []);
 
   // Filter countries by region
   const filteredCountries = useMemo(() => {
     return selectedRegion
       ? countries.filter((country) => country.region === selectedRegion)
       : countries;
-  }, [selectedRegion]);
+  }, [selectedRegion, countries]);
 
   // Filter by search
   const searchFilteredCountries = useMemo(() => {
@@ -40,7 +56,7 @@ const Home = () => {
   }, [searchFilteredCountries, currentPage]);
 
   // Reset to first page on filter/search change
-  useMemo(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [searchValue, selectedRegion]);
 
@@ -61,15 +77,25 @@ const Home = () => {
 
       {/* Country List */}
       <section className="grid md:grid-cols-4 gap-4 md:gap-10 min-h-[20rem]">
-        {paginatedCountries.length > 0 ? (
+        {loading ? (
+          // Skeleton grid
+          Array.from({ length: ITEMS_PER_PAGE }).map((_, idx) => (
+            <div
+              key={idx}
+              className="space-y-3 rounded-md p-4 shadow-md bg-white dark:bg-[hsl(209,23%,22%)] animate-pulse"
+            >
+              <Skeleton className="w-full h-32 mb-4 rounded-md" />
+              <Skeleton className="w-3/4 h-6 rounded-md" />
+              <Skeleton className="w-full h-4 rounded-md" />
+              <Skeleton className="w-5/6 h-4 rounded-md" />
+              <Skeleton className="w-1/2 h-4 rounded-md" />
+            </div>
+          ))
+        ) : paginatedCountries.length > 0 ? (
           paginatedCountries.map((country) => (
             <CountryListItem
               key={country.name}
-              name={country.name}
-              capital={country.capital ?? ""}
-              flagUrl={country.flag}
-              population={country.population.toLocaleString()}
-              region={country.region}
+              country={country}
               link={ProviderRoutePaths.CountryDetails.replace(
                 ":countryName",
                 country.name
