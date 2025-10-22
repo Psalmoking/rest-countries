@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { Moon } from "lucide-react";
+import { Button } from "../components/ui/button";
 
-import { Button } from "../ui/button";
-
+import ScrollToTop from "@/components/common/ScrollToTop";
 import { ProviderRoutePaths } from "@/router/routePaths";
 
 const AppLayout = () => {
@@ -38,6 +38,7 @@ const AppLayout = () => {
       </header>
       <main className="p-4 bg-gray-50 min-h-[calc(100dvh-4.25rem)] dark:bg-[hsl(207,26%,17%)]">
         <div className="md:w-[90%] mx-auto">
+          <ScrollToTop />
           <Outlet />
         </div>
       </main>
