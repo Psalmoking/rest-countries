@@ -24,8 +24,6 @@ const CountryListItem = ({ country, link }: CountryListItemProps) => {
         <Card className="p-0 rounded-md overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer bg-background border-none dark:bg-[hsl(209,23%,22%)]">
           <img
             src={country.flag}
-            // src={flagUrl}
-            // alt={`${name} flag`}
             alt={`${country.name} flag`}
             className="h-40 w-full object-cover"
           />
@@ -34,7 +32,6 @@ const CountryListItem = ({ country, link }: CountryListItemProps) => {
             <h4 className="font-bold text-lg text-foreground">
               {country.name}
             </h4>
-            {/* <h4 className="font-bold text-lg text-foreground">{name}</h4> */}
 
             <div className="space-y-1 text-sm text-muted-foreground">
               <p>
@@ -42,17 +39,14 @@ const CountryListItem = ({ country, link }: CountryListItemProps) => {
                   Population:
                 </span>{" "}
                 {country.population}
-                {/* {population} */}
               </p>
               <p>
                 <span className="font-semibold text-foreground">Region:</span>{" "}
                 {country.region}
-                {/* {region} */}
               </p>
               <p>
                 <span className="font-semibold text-foreground">Capital:</span>{" "}
                 {country.capital}
-                {/* {capital} */}
               </p>
             </div>
           </CardContent>

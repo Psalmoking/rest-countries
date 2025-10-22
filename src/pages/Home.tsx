@@ -32,21 +32,18 @@ const Home = () => {
     fetchCountries();
   }, []);
 
-  // Filter countries by region
   const filteredCountries = useMemo(() => {
     return selectedRegion
       ? countries.filter((country) => country.region === selectedRegion)
       : countries;
   }, [selectedRegion, countries]);
 
-  // Filter by search
   const searchFilteredCountries = useMemo(() => {
     return filteredCountries.filter((country) =>
       country.name.toLowerCase().includes(searchValue.toLowerCase())
     );
   }, [filteredCountries, searchValue]);
 
-  // Pagination Logic
   const totalPages = Math.ceil(searchFilteredCountries.length / ITEMS_PER_PAGE);
 
   const paginatedCountries = useMemo(() => {
@@ -55,14 +52,12 @@ const Home = () => {
     return searchFilteredCountries.slice(startIndex, endIndex);
   }, [searchFilteredCountries, currentPage]);
 
-  // Reset to first page on filter/search change
   useEffect(() => {
     setCurrentPage(1);
   }, [searchValue, selectedRegion]);
 
   return (
     <div className="space-y-8">
-      {/* Search + Filter */}
       <div className="space-y-4 md:flex md:justify-between md:items-center md:space-y-0">
         <SearchBar
           placeholder="Search for a country..."
@@ -75,7 +70,6 @@ const Home = () => {
         />
       </div>
 
-      {/* Country List */}
       <section className="grid md:grid-cols-4 gap-4 md:gap-10 min-h-[20rem]">
         {loading ? (
           // Skeleton grid
@@ -114,7 +108,6 @@ const Home = () => {
       {/* Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-2 mt-8">
-          {/* Previous Button */}
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
@@ -155,7 +148,6 @@ const Home = () => {
               );
             })}
 
-          {/* Next Button */}
           <button
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
