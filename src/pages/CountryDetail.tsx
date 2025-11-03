@@ -55,7 +55,7 @@ const CountryDetail = () => {
 
   return (
     <>
-      <title> {countryName} | REST Countries Explorer</title>
+      <title>{`${countryName} | REST Countries Explorer`}</title>
       <meta
         name="description"
         content="Explore countries around the world with REST Countries Explorer"
