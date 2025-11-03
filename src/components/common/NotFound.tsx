@@ -2,20 +2,22 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Home } from "lucide-react";
-import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <Helmet>
-        <title>404 | Page Not Found</title>
-        <meta
-          name="description"
-          content="The page you’re looking for doesn’t exist or has been moved. Navigate back or return home."
-        />
-      </Helmet>
+      <title>404 | Page Not Found</title>
+      <meta
+        name="description"
+        content="The page you’re looking for doesn’t exist or has been moved. Navigate back or return home."
+      />
+      <meta property="og:title" content="404 | Page Not Found" />
+      <meta
+        property="og:description"
+        content="The page you’re looking for doesn’t exist or has been moved. Navigate back or return home."
+      />
 
       <motion.section
         initial={{ opacity: 0, y: 20 }}

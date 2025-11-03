@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
@@ -56,13 +55,19 @@ const CountryDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{countryName} | REST Countries Explorer</title>
-        <meta
-          name="description"
-          content="Explore countries around the world with REST Countries Explorer"
-        />
-      </Helmet>
+      <title> {countryName} | REST Countries Explorer</title>
+      <meta
+        name="description"
+        content="Explore countries around the world with REST Countries Explorer"
+      />
+      <meta
+        property="og:title"
+        content={`${countryName} | REST Countries Explorer`}
+      />
+      <meta
+        property="og:description"
+        content="Explore countries around the world with REST Countries Explorer"
+      />
 
       <div key={country.name}>
         <Button

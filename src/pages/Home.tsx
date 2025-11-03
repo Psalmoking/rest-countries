@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
 import axios from "axios";
-import { Helmet } from "react-helmet-async";
 import { Skeleton } from "@/components/ui/skeleton";
 import SearchBar from "@/components/common/SearchBar";
 import RegionFilter from "@/components/common/RegionFilter";
@@ -59,13 +58,20 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>REST Countries Explorer | Explore the World's Countries</title>
-        <meta
-          name="description"
-          content="Explore countries around the world with REST Countries Explorer"
-        />
-      </Helmet>
+      <title>REST Countries Explorer | Explore the World's Countries</title>
+      <meta
+        name="description"
+        content="Explore countries around the world with REST Countries Explorer"
+      />
+      <meta
+        property="og:title"
+        content="REST Countries Explorer | Explore the World's Countries"
+      />
+      <meta
+        property="og:description"
+        content="Explore countries around the world with REST Countries Explorer"
+      />
+
       <div className="space-y-8">
         <div className="space-y-4 md:flex md:justify-between md:items-center md:space-y-0">
           <SearchBar
