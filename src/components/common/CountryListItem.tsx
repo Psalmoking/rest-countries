@@ -38,7 +38,7 @@ const CountryListItem = ({ country, link }: CountryListItemProps) => {
                 <span className="font-semibold text-foreground">
                   Population:
                 </span>{" "}
-                {country.population}
+                {country.population.toLocaleString()}
               </p>
               <p>
                 <span className="font-semibold text-foreground">Region:</span>{" "}
